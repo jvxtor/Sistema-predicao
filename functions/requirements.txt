@@ -1,0 +1,8 @@
+firebase-functions
+firebase-admin
+fastapi
+a2wsgi
+pandas
+scikit-learn
+joblib
+python-dotenv

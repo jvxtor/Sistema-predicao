@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Apenas o backend (Admin SDK) acessa o Firestore; clientes nunca
+    // falam diretamente com ele, então o acesso direto é bloqueado.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
