@@ -4,12 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Predição de Custo de Seguro Médico</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    body.auth-pending main {
+      display: none;
+    }
+  </style>
 </head>
-<body>
+<body class="auth-pending">
   <main class="container">
-    <h1>Predição de Custo de Seguro Médico</h1>
-    <p class="subtitle">Informe os dados do segurado para estimar o custo (charges).</p>
+    <div class="page-header">
+      <div>
+        <h1>Predição de Custo de Seguro Médico</h1>
+        <p class="subtitle">Informe os dados do segurado para estimar o custo (charges).</p>
+      </div>
+      <div class="user-bar">
+        <span id="user-email"></span>
+        <button type="button" id="logout-button">Sair</button>
+      </div>
+    </div>
 
     <form id="predict-form">
       <div class="field">
@@ -59,7 +72,15 @@
     <section id="result" class="result hidden"></section>
 
     <section class="history">
-      <h2>Predições recentes</h2>
+      <div class="section-header">
+        <h2>Predições recentes</h2>
+        <div class="header-actions">
+          <button type="button" id="import-button">Importar CSV</button>
+          <input type="file" id="import-file-input" accept=".csv" hidden />
+          <button type="button" id="export-button">Exportar CSV</button>
+        </div>
+      </div>
+      <p id="import-status" class="import-status hidden"></p>
       <table id="history-table">
         <thead>
           <tr>
@@ -76,9 +97,42 @@
         <tbody id="history-body"></tbody>
       </table>
     </section>
+
+    <section class="dashboard">
+      <h2>Dashboard</h2>
+
+      <div class="stat-cards">
+        <div class="stat-card">
+          <span class="stat-label">Total de predições</span>
+          <span class="stat-value" id="stat-count">—</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Custo médio previsto</span>
+          <span class="stat-value" id="stat-avg">—</span>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-box">
+          <h3>Custo médio por região</h3>
+          <canvas id="chart-region"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Fumante vs não-fumante</h3>
+          <canvas id="chart-smoker"></canvas>
+        </div>
+        <div class="chart-box chart-box-wide">
+          <h3>Distribuição dos custos previstos</h3>
+          <canvas id="chart-distribution"></canvas>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="config.js?v=4"></script>
+  <script src="firebase-config.js?v=4"></script>
+  <script type="module" src="auth-guard.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
